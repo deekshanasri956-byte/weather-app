@@ -1,18 +1,33 @@
-function getWeather() {
-    const city = document.getElementById("cityInput").value;
+const API_URL = "http://localhost:8080/weather/";
 
-    fetch(`http://localhost:8080/weather/${city}`)
+function getWeather() {
+    let city = document.getElementById("cityInput").value;
+
+    if (city === "") {
+        alert("Please enter a city name");
+        return;
+    }
+
+    fetch(API_URL + city)
         .then(response => response.json())
         .then(data => {
             document.getElementById("result").innerHTML = `
                 <h2>${data.city}</h2>
                 <p>${data.description}</p>
-                <p>Temperature: ${data.temperature} °C</p>
-                <p>Humidity: ${data.humidity}%</p>
-                <p>Wind Speed: ${data.windSpeed} m/s</p>
+                <p><strong>Temperature:</strong> ${data.temperature} °C</p>
+                <p><strong>Humidity:</strong> ${data.humidity}%</p>
+                <p><strong>Wind Speed:</strong> ${data.windSpeed} m/s</p>
             `;
         })
-        .catch(err => {
-            document.getElementById("result").innerHTML = "<p style='color:red;'>City not found</p>";
+        .catch(error => {
+            console.error("Error:", error);
         });
 }
+
+// 🌟 Auto-update every 10 seconds (REAL TIME)
+setInterval(() => {
+    let city = document.getElementById("cityInput").value;
+    if (city !== "") {
+        getWeather();
+    }
+}, 10000); // 10 seconds

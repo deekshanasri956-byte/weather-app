@@ -1,0 +1,19 @@
+body {
+    font-family: Arial;
+    background: #e0f7fa;
+    text-align: center;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
